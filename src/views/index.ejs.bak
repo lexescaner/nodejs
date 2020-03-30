@@ -1,0 +1,29 @@
+<!-- html
+    head
+        title MyApp
+    body(class=["myClass"])
+        h1(id='MyId') Library
+        p  
+            h3 sub header
+        ul
+            each val in list
+                li=val
+         -->
+<html lang="en">
+
+<head>
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>
+        Welcome to <%=title%>
+    </h1>
+    <ul>
+        <%for(var i = 0; i < list.length; i++) {%>
+        <li><%=list[i]%></li>
+        <%}%>
+        </li>
+    </ul>
+</body>
+</html>
