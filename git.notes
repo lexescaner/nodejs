@@ -1,0 +1,11 @@
+echo "# nodejs" >> README.md
+git init
+git add .
+git commit -m "First commit"
+git remote add origin https://github.com/lexescaner/nodejs.git
+git push -u origin master
+git status
+
+
+git remote add origin https://github.com/lexescaner/nodejs.git
+git push -u origin master
