@@ -6,7 +6,6 @@ const path = require('path'); /* // path is built-in and no need to install */
 
 const app = express(); // create instance of express
 const port = process.env.PORT || 8000;
-const bookRouter = express.Router(); /* encapsulates all routes */
 
 app.use(morgan('tiny')); //  combined, tiny
 app.use(express.static(path.join(__dirname, '/public/'))); /* // hej I am setting-up static directory to store static files */
@@ -16,53 +15,12 @@ app.use('/js', express.static(path.join(__dirname, '/node_modules/jquery/dist'))
 app.set('views', './src/views');
 app.set('view engine', 'ejs'); /* use either pug or ejs */
 
-const books = [
-  {
-    title: 'War and Peace',
-    genre: 'Historical Fiction',
-    author: 'Lev Nikolayevich Tolstoy',
-    read: false
-  },
-  {
-    title: 'Les Miserables',
-    genre: 'Historical Fiction',
-    author: 'Victor Hugo',
-    read: false
-  },
-  {
-    title: 'The Wind in the Willows',
-    genre: 'Fantasy',
-    author: 'Kenneth Grahame',
-    read: false
-  },
-  {
-    title: 'Life on the Mississippi',
-    genre: 'History',
-    author: 'Mark Twain',
-    read: false
-  },
-  {
-    title: 'Childhood',
-    genre: 'Biography',
-    author: 'Lev Nikolayevich Tolstoy',
-    read: false
-  }
+const nav = [
+  { link: '/books', title: 'Book' },
+  { link: '/authors', title: 'Author' }
 ];
 
-bookRouter.route('/')
-  .get((req, res) => {
-    res.render('books',
-      {
-        nav: [{ link: '/books', title: 'Books' }, { link: '/authors', title: 'Authors' }],
-        title: 'Library',
-        books /* placeholder for the const books */
-      });
-  });
-
-bookRouter.route('/single')
-  .get((req, res) => {
-    res.send('hello single book');
-  });
+const bookRouter = require('./src/routes/bookRoutes')(nav); /* encapsulates all routes */
 
 app.use('/books', bookRouter);
 /* // when express GET a request to this route(verb) */
