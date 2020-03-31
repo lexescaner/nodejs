@@ -3,9 +3,27 @@ const chalk = require('chalk'); /* // allowing us to set colors on messages */
 const debug = require('debug')('app'); /* // debug does not work in production, express uses debug too */
 const morgan = require('morgan'); /* // morgan logs something to the console */
 const path = require('path'); /* // path is built-in and no need to install */
+const sql = require('mssql');
 
 const app = express(); // create instance of express
 const port = process.env.PORT || 8000;
+
+const config = {
+  user: 'library',
+  password: '+InHim8080',
+  server: 'lxej-pslibrary.database.windows.net',
+  database: 'demo-app-pslibrary',
+  pool: {
+    max: 10,
+    min: 0,
+    idleTimeoutMillis: 30000
+  },
+  options: {
+    encrypt: true
+  }
+};
+
+sql.connect(config).catch((err) => debug(err));
 
 app.use(morgan('tiny')); //  combined, tiny
 app.use(express.static(path.join(__dirname, '/public/'))); /* // hej I am setting-up static directory to store static files */
