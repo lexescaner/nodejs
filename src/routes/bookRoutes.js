@@ -2,7 +2,7 @@ const express = require('express');
 
 const bookRouter = express.Router();
 const sql = require('mssql');
-const debug = require('debug')('app:bookRoutes');
+/* const debug = require('debug')('app:bookRoutes'); */
 
 function router(nav) {
   const books = [
@@ -40,18 +40,17 @@ function router(nav) {
 
   bookRouter.route('/')
     .get((req, res) => {
-      const request = new sql.Request();
-
-      request.query('select * from books')
-        .then((result) => { /* uses promises */
-          debug(result);
-          res.render('bookListView',
-            {
-              nav,
-              title: 'Library',
-              books: result.recordset /* placeholder for the const books */
-            });
-        });
+      (async function query() { /* Wrapped on async */
+        const request = new sql.Request();
+        const result = await request.query('select * from books');
+        /* debug(result); */
+        res.render('bookListView',
+          {
+            nav,
+            title: 'Library',
+            books: result.recordset /* placeholder for the const books */
+          });
+      }());
     });
 
   bookRouter.route('/:id') /* after : is the variable name */
