@@ -5,7 +5,7 @@ const morgan = require('morgan'); /* // morgan logs something to the console */
 const path = require('path'); /* // path is built-in and no need to install */
 
 const app = express(); // create instance of express
-const port = process.env.PORT_NU || 3000;
+const port = process.env.PORT || 8000;
 const bookRouter = express.Router(); /* encapsulates all routes */
 
 app.use(morgan('tiny')); //  combined, tiny
@@ -16,14 +16,46 @@ app.use('/js', express.static(path.join(__dirname, '/node_modules/jquery/dist'))
 app.set('views', './src/views');
 app.set('view engine', 'ejs'); /* use either pug or ejs */
 
+const books = [
+  {
+    title: 'War and Peace',
+    genre: 'Historical Fiction',
+    author: 'Lev Nikolayevich Tolstoy',
+    read: false
+  },
+  {
+    title: 'Les Miserables',
+    genre: 'Historical Fiction',
+    author: 'Victor Hugo',
+    read: false
+  },
+  {
+    title: 'The Wind in the Willows',
+    genre: 'Fantasy',
+    author: 'Kenneth Grahame',
+    read: false
+  },
+  {
+    title: 'Life on the Mississippi',
+    genre: 'History',
+    author: 'Mark Twain',
+    read: false
+  },
+  {
+    title: 'Childhood',
+    genre: 'Biography',
+    author: 'Lev Nikolayevich Tolstoy',
+    read: false
+  }
+];
 
 bookRouter.route('/')
   .get((req, res) => {
-    res.render(
-      'books',
+    res.render('books',
       {
         nav: [{ link: '/books', title: 'Books' }, { link: '/authors', title: 'Authors' }],
-        title: 'Library'
+        title: 'Library',
+        books /* placeholder for the const books */
       });
   });
 
