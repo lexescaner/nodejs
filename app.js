@@ -18,7 +18,11 @@ app.set('view engine', 'ejs'); /* use either pug or ejs */
 /* // when express GET a request to this route(verb) */
 /* // __dirname means the location of the current executable */
 app.get('/', (req, res) => {
-  res.render('index', { list: ['a', 'b'], title: 'Library' }); /* Render a view called index; Look for where my views are at .src/views */
+  res.render('index',
+    {
+      nav: [{ link: '/books', title: 'Books' }, { link: '/authors', title: 'Authors' }],
+      title: 'Library'
+    }); /* Render a view called index; Look for where my views are at .src/views */
 });
 
 /* // because of ES6 */

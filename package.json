@@ -34,7 +34,7 @@
     "delay": "2500",
     "env": {
       "NODE_ENV": "development",
-      "PORT_NU": 4001
+      "PORT_NU": 8000
     }
   }
 }
