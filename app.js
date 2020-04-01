@@ -8,7 +8,7 @@ const sql = require('mssql');
 const app = express(); // create instance of express
 const port = process.env.PORT || 8000;
 
-const config = {
+/* const config = {
   user: 'library',
   password: '+InHim8080',
   server: 'lxej-pslibrary.database.windows.net',
@@ -22,8 +22,7 @@ const config = {
     encrypt: true
   }
 };
-
-sql.connect(config).catch((err) => debug(err));
+sql.connect(config).catch((err) => debug(err)); */
 
 app.use(morgan('tiny')); //  combined, tiny
 app.use(express.static(path.join(__dirname, '/public/'))); /* // hej I am setting-up static directory to store static files */
@@ -39,8 +38,11 @@ const nav = [
 ];
 
 const bookRouter = require('./src/routes/bookRoutes')(nav); /* encapsulates all routes */
+const adminRouter = require('./src/routes/adminRoutes')(nav);
 
 app.use('/books', bookRouter);
+app.use('/admin', adminRouter);
+
 /* // when express GET a request to this route(verb) */
 /* // __dirname means the location of the current executable */
 app.get('/', (req, res) => {
